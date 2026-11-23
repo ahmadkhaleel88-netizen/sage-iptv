@@ -6,6 +6,7 @@ name: Release
 on:
   push:
     branches: [ main ]
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -85,8 +86,8 @@ jobs:
             echo "::error::Signing secrets are missing. Refusing to publish an unsigned release."
             exit 1
           fi
-          printf '%s' "$KEYSTORE_BASE64" | base64 -d > ipvio-release.jks
-          printf 'storeFile=ipvio-release.jks\nstorePassword=%s\nkeyAlias=%s\nkeyPassword=%s\n' \
+          printf '%s' "$KEYSTORE_BASE64" | base64 -d > sage-release.jks
+          printf 'storeFile=sage-release.jks\nstorePassword=%s\nkeyAlias=%s\nkeyPassword=%s\n' \
             "$STORE_PASSWORD" "$KEY_ALIAS" "$KEY_PASSWORD" > keystore.properties
 
       - name: Build signed release APK
@@ -103,11 +104,11 @@ jobs:
           APKSIGNER=$(find "$ANDROID_HOME/build-tools" -name apksigner -type f | sort -V | tail -1)
           "$APKSIGNER" verify --print-certs "$APK"
 
-      - name: Create IPVIO-Stream.apk and update.json
+      - name: Create SageIPTV.apk and update.json
         run: |
-          cp app/build/outputs/apk/release/app-release.apk IPVIO-Stream.apk
-          SHA=$(sha256sum IPVIO-Stream.apk | cut -d' ' -f1)
-          printf '{\n  "versionCode": %s,\n  "versionName": "%s",\n  "apk": "IPVIO-Stream.apk",\n  "sha256": "%s",\n  "minSupportedCode": 0,\n  "mandatory": false\n}\n' \
+          cp app/build/outputs/apk/release/app-release.apk SageIPTV.apk
+          SHA=$(sha256sum SageIPTV.apk | cut -d' ' -f1)
+          printf '{\n  "versionCode": %s,\n  "versionName": "%s",\n  "apk": "SageIPTV.apk",\n  "sha256": "%s",\n  "minSupportedCode": 0,\n  "mandatory": false\n}\n' \
             "${{ steps.version.outputs.code }}" "${{ steps.version.outputs.name }}" "$SHA" > update.json
           # Update dialog text: the first four highlight lines of the release notes, max 300 characters (Round17Logic.kt)
           NOTES_FILE="docs/release-notes/v${{ steps.version.outputs.name }}.md"
@@ -122,7 +123,7 @@ jobs:
         run: |
           NOTES_FILE="docs/release-notes/v${{ steps.version.outputs.name }}.md"
           if [ -f "$NOTES_FILE" ]; then NOTES_ARGS=(--notes-file "$NOTES_FILE"); else NOTES_ARGS=(--generate-notes); fi
-          gh release create "v${{ steps.version.outputs.name }}" IPVIO-Stream.apk update.json \
+          gh release create "v${{ steps.version.outputs.name }}" SageIPTV.apk update.json \
             --target "$GITHUB_SHA" \
-            --title "IPVIO Stream ${{ steps.version.outputs.name }}" \
+            --title "SageIPTV ${{ steps.version.outputs.name }}" \
             "${NOTES_ARGS[@]}"
