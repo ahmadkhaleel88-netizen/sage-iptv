@@ -154,7 +154,7 @@ object General {
             else p.getInt("font", 0).let { old -> if (old in 1..4) old + 2 else 0 }
         textScaleIdx = p.getInt("text_scale", 1).coerceIn(0, TEXT_SCALES.lastIndex)
         defaultAspect = p.getInt("aspect", 0).coerceIn(0, ASPECT_NAMES.lastIndex)
-        heroSec = p.getInt("hero_sec", 9).coerceIn(0, 60)
+        heroSec = p.getInt("hero_sec", PerfDefaultsLogic.heroSec(Mem.tier(c))).coerceIn(0, 60)
         showClock = p.getBoolean("show_clock", true)
         sportLive = p.getBoolean("sport_live", true)
         fitX = p.getInt("fit_x", 0).coerceIn(0, 10)

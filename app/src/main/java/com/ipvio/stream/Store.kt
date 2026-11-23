@@ -174,7 +174,7 @@ object AppSettings {
         Look.custom = p.getInt("look_custom", Look.BRAND_GREEN) and 0xFFFFFF
         Look.custom2 = p.getInt("look_custom2", -1).let { if (it < 0) -1 else it and 0xFFFFFF }
         Look.bgIdx = p.getInt("look_bg", Look.DEFAULT_BG).coerceIn(0, Look.BGS.lastIndex)
-        Look.motion = p.getInt("look_motion", 2).coerceIn(0, 2)
+        Look.motion = p.getInt("look_motion", PerfDefaultsLogic.motion(Mem.tier(c))).coerceIn(0, 2)
         Look.uiScale = p.getInt("look_scale", Look.DEFAULT_SCALE).coerceIn(0, Look.SCALES.lastIndex)
     }
 
