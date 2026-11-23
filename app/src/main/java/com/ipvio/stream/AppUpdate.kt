@@ -43,10 +43,10 @@ data class UpdateInfo(
  */
 object AppUpdate {
     /** Built-in fallback address: the GitHub API of the latest release of the project. */
-    const val DEFAULT_URL = "https://api.github.com/repos/ahmadkhaleel88-netizen/sageiptv/releases/latest"
+    const val DEFAULT_URL = "https://api.github.com/repos/ahmadkhaleel88-netizen/sage-iptv/releases/latest"
 
     /** Built-in primary address: `update.json` attached to the latest release (T-015). */
-    const val PRIMARY_URL = "https://github.com/ahmadkhaleel88-netizen/sageiptv/releases/latest/download/update.json"
+    const val PRIMARY_URL = "https://github.com/ahmadkhaleel88-netizen/sage-iptv/releases/latest/download/update.json"
 
     /** Found update (for the bell), null = none known. */
     var available by mutableStateOf<UpdateInfo?>(null)
@@ -60,7 +60,7 @@ object AppUpdate {
     fun setUrl(c: Context, v: String) = prefs(c).edit().putString("url", v.trim()).apply()
 
     /** Automatic check at start (default: on). */
-    fun auto(c: Context) = prefs(c).getBoolean("auto", false)
+    fun auto(c: Context) = prefs(c).getBoolean("auto", true)
     fun setAuto(c: Context, on: Boolean) = prefs(c).edit().putBoolean("auto", on).apply()
 
     /** T-014: the first-start update card was already decided (shown or skipped). New key, existing keys are untouched. */

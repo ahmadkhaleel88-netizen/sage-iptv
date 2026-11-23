@@ -3,7 +3,7 @@
 ## Unreleased
 
 ## 1.5.0 (versionCode 15)
-- SageIPTV: this fork is renamed from IPVIO Stream to SageIPTV, with a new logo, TV banner, app icon and sage-green colours. App ID `com.sage.iptv`, so it installs next to IPVIO Stream and keeps its own data. In-app updates now come from the sage-iptv GitHub releases (`SageIPTV.apk`). The code lives in a private repository, so the automatic daily update check is off by default (a private release cannot be downloaded by the app); install new versions by hand. Not device tested yet
+- SageIPTV: this fork is renamed from IPVIO Stream to SageIPTV, with a new logo, TV banner, app icon and sage-green colours. App ID `com.sage.iptv`, so it installs next to IPVIO Stream and keeps its own data. In-app updates now come from the sage-iptv GitHub releases (`SageIPTV.apk`). Not device tested yet
 - Docs: README gets an install troubleshooting pointer, a "Privacy and security" section (API keys, backup servers, phone remote over plain HTTP, VPN without kill switch, own DNS), a "Known limitations" section and a link to the test documentation. No app change
 
 ## 1.4.8 (versionCode 14)
