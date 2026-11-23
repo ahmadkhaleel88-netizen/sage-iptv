@@ -117,7 +117,7 @@ keine¦brak
 Installiert¦Zainstalowano
 Oder vom Handy senden (gleiches WLAN):¦Albo wyślij z telefonu (ta sama sieć Wi-Fi):
 Bitte mit dem Internet verbinden¦Połącz się z internetem
-So schaltest du IPVIO Stream frei – ohne etwas am Fernseher zu tippen:¦Jak odblokować IPVIO Stream – bez wpisywania czegokolwiek na telewizorze:
+So schaltest du SageIPTV frei – ohne etwas am Fernseher zu tippen:¦Jak odblokować SageIPTV – bez wpisywania czegokolwiek na telewizorze:
 1.  Öffne auf deinem Handy diese Adresse:¦1.  Otwórz ten adres na telefonie:
 3.  Dieser Bildschirm schaltet sich danach automatisch frei.¦3.  Ten ekran odblokuje się potem automatycznie.
 Prüfe …¦Sprawdzanie …
