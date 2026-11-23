@@ -24,7 +24,7 @@ class DriveLogicTest {
     @Test fun queries() {
         assertEquals("'1AbC_d-9' in parents and name contains 'ipvio_sync_' and trashed = false", DriveLogic.listQuery("1AbC_d-9"))
         assertEquals("'1AbC' in parents and name = 'ipvio_sync_ab12.json' and trashed = false", DriveLogic.fileQuery("1AbC", "ab12"))
-        assertTrue(DriveLogic.folderQuery().startsWith("name = 'IPVIO Stream Sync'"))
+        assertTrue(DriveLogic.folderQuery().startsWith("name = 'SageIPTV Sync'"))
         var thrown = false
         try { DriveLogic.listQuery("x' or '1'='1") } catch (e: IllegalArgumentException) { thrown = true }
         assertTrue(thrown)
