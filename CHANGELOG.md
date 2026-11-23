@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+## 1.6.0 (versionCode 18)
+- New look to match the Sage app family (Sage Readiness, Listo, SalahTimes, Bayyin): gold accent on deep green by default, and a new gold-on-green logo, app icon and TV banner. Other colour themes are unchanged and can still be chosen in Settings. Not device tested yet
+
 ## 1.5.2 (versionCode 17)
 - Search keyboard: the second key layer is Arabic now (the key that showed European special letters is labelled "عربي"). English letters, numbers and symbols are unchanged. European special letters are no longer on the built-in keyboard. Not device tested yet
 

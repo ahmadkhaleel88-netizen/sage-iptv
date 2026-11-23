@@ -19,10 +19,10 @@ class BgPreset(val name: String, val bg: Int, val surf: Int, val surf2: Int)
  * so when switching the whole app changes immediately without any screen having to be adjusted.
  */
 object Look {
-    /** Default design: light green #4ADE80 (highlight #86EFAC) on navy #0B0F19. */
-    const val BRAND_GREEN = 0x4ADE80
-    const val BRAND_GREEN_HI = 0x86EFAC
-    const val BRAND_NAVY = 0x0B0F19
+    /** Default design (SageIPTV family): gold #D4B070 (highlight #E8CC94) on deep green #0C2426. */
+    const val BRAND_GREEN = 0xD4B070
+    const val BRAND_GREEN_HI = 0xE8CC94
+    const val BRAND_NAVY = 0x0C2426
     /** Default: IPVIO green on navy (round 13e: the design colors were removed again). */
     const val DEFAULT_ACCENT = 0
     const val DEFAULT_BG = 0
@@ -50,7 +50,7 @@ object Look {
     val CUSTOM get() = ACCENTS.size
 
     val BGS = listOf(
-        BgPreset("Sage Navy", BRAND_NAVY, 0x151B2A, 0x1F2739),
+        BgPreset("Sage Green", BRAND_NAVY, 0x143430, 0x1E433E),
         BgPreset("Mitternacht", 0x07080C, 0x12141C, 0x1B1E2A),
         BgPreset("OLED-Schwarz", 0x000000, 0x0B0C10, 0x15171E),
         BgPreset("Graphit", 0x121316, 0x1C1E24, 0x272A32),
