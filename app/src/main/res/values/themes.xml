@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- SageIPTV: the window shows the deep green and the logo at once, so a cold start is not a blank screen
+         while the app loads the stored playlist. The app's own screens draw over it. -->
+    <style name="Theme.Sage.Launch" parent="@android:style/Theme.Material.NoActionBar">
+        <item name="android:windowBackground">@drawable/launch_bg</item>
+        <item name="android:colorBackground">#0C2426</item>
+    </style>
+</resources>

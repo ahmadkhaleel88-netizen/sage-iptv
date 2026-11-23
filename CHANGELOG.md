@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+## 1.6.1 (versionCode 19)
+- Smoother on small TVs (up to 3 GB of memory): animations start as "Off" and the home banner no longer changes by itself, unless you chose something else in Settings. Measured on a 1.8 GB Google TV: 91% of frames were late while browsing Movies with full animations. Not yet measured after the change. Turn animations back on in Settings > Design & color > Animations
+- Start: the SageIPTV logo on deep green shows at once while the app loads, instead of an empty screen for a few seconds. Loading itself is not faster yet. Not device tested yet
+
 ## 1.6.0 (versionCode 18)
 - New look to match the Sage app family (Sage Readiness, Listo, SalahTimes, Bayyin): gold accent on deep green by default, and a new gold-on-green logo, app icon and TV banner. Other colour themes are unchanged and can still be chosen in Settings. Not device tested yet
 
