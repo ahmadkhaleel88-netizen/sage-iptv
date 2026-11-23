@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+## 1.5.2 (versionCode 17)
+- Search keyboard: the second key layer is Arabic now (the key that showed European special letters is labelled "عربي"). English letters, numbers and symbols are unchanged. European special letters are no longer on the built-in keyboard. Not device tested yet
+
 ## 1.5.1 (versionCode 16)
 - The default colours are back to the original bright green on navy (1.5.0 used sage green). The sage logo, app icon and TV banner stay. Not device tested yet
 - The automatic daily update check is on again and looks at the sage-iptv releases (1.5.0 had it off). Not device tested yet

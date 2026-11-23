@@ -450,8 +450,8 @@ internal object SearchSport {
 private val KB_DIGITS = "1234567890"
 private val KB_LETTERS = listOf("qwertyuiop", "asdfghjkl", "zxcvbnm")
 private val KB_SYMBOLS = listOf("-/:;()&@\"", ".,?!'+=_%", "#*<>[]{}~")
-// Special letters for other languages (German, French, Spanish, Turkish, Nordic, Slavic ...)
-private val KB_SPECIAL = listOf("äöüßéèêàâç", "ñışğčćšžđå", "øæœíóúáãõ")
+// SageIPTV: the second layer is Arabic (instead of European special letters), so search works in English and Arabic
+private val KB_SPECIAL = listOf("ضصثقفغعهخحج", "شسيبلاتنمكد", "ذئءؤرىةوزظطأ")
 
 /**
  * QWERTY on-screen keyboard: a number row on top (no extra layer needed), three key rows, then layer switch (symbols / special letters),
@@ -489,7 +489,7 @@ internal fun SearchKeyboard(
             KbKey("Leer", Modifier.weight(if (onPhone == null) (if (onVoice != null) 3.9f else 4.5f) else if (onVoice != null) 2f else 2.6f), onFocusChange, null) { onSpace() }
             if (onPhone != null) KbKey("Handy", Modifier.weight(1.9f), onFocusChange, null, icon = AIcon.Phone) { onPhone() }
             if (onVoice != null) KbKey("", Modifier.weight(0.9f), onFocusChange, null, icon = AIcon.Mic) { onVoice() }
-            KbKey(if (special) "abc" else "äöü", Modifier.weight(1.5f), onFocusChange, null) { special = !special; symbols = false }
+            KbKey(if (special) "abc" else "عربي", Modifier.weight(1.5f), onFocusChange, null) { special = !special; symbols = false }
             KbKey("Alles", Modifier.weight(1.8f), onFocusChange, onRight) { onClear() }
         }
     }
