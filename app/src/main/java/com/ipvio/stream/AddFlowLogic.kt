@@ -4,6 +4,11 @@ package com.ipvio.stream
  * Rules around the add-playlist screen and the empty list state (without Android, testable).
  */
 object AddFlowLogic {
+    /** SageIPTV: the home shows its loading skeleton (not "No channels yet") while a load runs, or before the first
+     *  load since app start has ended when a playlist is saved. */
+    fun showsLoading(loading: Boolean, everFinished: Boolean, hasLists: Boolean): Boolean =
+        loading || (!everFinished && hasLists)
+
     /**
      * Closing the add screen reloads the saved playlist only if nothing was ever shown (e.g. a resumed add was cancelled).
      * A list that is empty only because of the playlist mode (Live only / VOD only) must not trigger a reload.

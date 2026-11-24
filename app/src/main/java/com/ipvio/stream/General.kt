@@ -27,7 +27,7 @@ object General {
     /** #95: keep the screen awake while the app is open, not only during playback (default off = as before). */
     var keepAwakeBrowse by mutableStateOf(false)
     /** W-002: "Movies" / "Series" in the sidebar open the categories screen right away instead of their home page. */
-    var vodCats by mutableStateOf(false)
+    var vodCats by mutableStateOf(true)
     /** Live TV: show the quality variants of one channel (8K/4K/FHD/HD/SD) as a single row. */
     var bundleLive by mutableStateOf(true)
     /** Live TV channel row size: 0 = small, 1 = normal (default), 2 = large. */
@@ -127,7 +127,7 @@ object General {
         resumeVod = p.getBoolean("resume_vod", false)
         confirmExit = p.getBoolean("confirm_exit", true)
         keepAwakeBrowse = p.getBoolean("keep_awake_browse", false)
-        vodCats = p.getBoolean("vod_cats", false)
+        vodCats = p.getBoolean("vod_cats", true)  // SageIPTV: on by default (categories left, titles right, no slideshow)
         bundleLive = p.getBoolean("bundle_live", true)
         channelRowSize = p.getInt("channel_row_size", 1).coerceIn(0, 2)
         // Users who never chose a mode get "daily": the first start still loads the list once (lastRefresh = 0),

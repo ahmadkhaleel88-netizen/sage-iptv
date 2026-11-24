@@ -596,7 +596,9 @@ fun HomeScreen(
                 PlaylistStore.loading && all.isEmpty() && PlaylistStore.heavy && (!keepSettings || PlaylistStore.langAsk != null) -> PlaylistLoadingOverlay()
                 // The settings page stays mounted while the list is empty or being rebuilt (e.g. after a playlist mode switch):
                 // replacing it would drop the focus, and the next OK press could land on "Add playlist"
-                !keepSettings && ((PlaylistStore.loading && all.isEmpty()) || computing) -> SkeletonHome()
+                // SageIPTV: before the first load has finished, an empty list means "not loaded yet": show the skeleton,
+                // not "No channels yet" with its add button (that flashed for a moment at every cold start)
+                !keepSettings && ((AddFlowLogic.showsLoading(PlaylistStore.loading, PlaylistStore.everFinished, PlaylistStore.lists.isNotEmpty()) && all.isEmpty()) || computing) -> SkeletonHome()
                 !keepSettings && all.isEmpty() -> Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                     Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(14.dp)) {
                         BrandMark(Modifier.size(72.dp))

@@ -144,6 +144,8 @@ object PlaylistStore {
     fun unfilteredChannels(): List<Item> = rawChannels
 
     var loading by mutableStateOf(false)
+    /** SageIPTV: true once the first load since app start has ended (done, failed or cancelled). Until then an empty list means "not loaded yet", not "no channels". */
+    var everFinished by mutableStateOf(false)
     var error by mutableStateOf<String?>(null)
     /**
      * Updating failed while the old list is still shown (the old list stays). Before, this stayed silent, so it looked as if
@@ -1507,7 +1509,7 @@ object PlaylistStore {
             withContext(Dispatchers.IO) { loadExtras(c, network = false) }
             return true
         } finally {
-            loading = false; heavy = false; job = null
+            loading = false; heavy = false; job = null; everFinished = true
             loadLock.unlock()
         }
     }
@@ -1578,7 +1580,7 @@ object PlaylistStore {
             return loadInner(c, url, save, skipNetworkWhenCached, ask, resumed, startup)
         } finally {
             pre = null   // T-047: an unused read-ahead must not keep the list in memory
-            loading = false   // also on cancel: otherwise the loading state (and the screen keep-awake) would stay stuck
+            loading = false; everFinished = true   // also on cancel: otherwise the loading state (and the screen keep-awake) would stay stuck
             heavy = false
             langAsk = null
             loadStarted = 0L
@@ -1670,7 +1672,7 @@ object PlaylistStore {
                 usedCache
             }
         }
-        loading = false
+        loading = false; everFinished = true
         return ok
     }
 
@@ -1714,7 +1716,7 @@ object PlaylistStore {
             }
             return true
         } finally {
-            loading = false
+            loading = false; everFinished = true
             heavy = false
             loadStarted = 0L
             askRequested = false
