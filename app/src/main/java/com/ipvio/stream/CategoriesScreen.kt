@@ -51,8 +51,10 @@ data class CatReq(
 
 const val CAT_RECENT = "Zuletzt geschaut"
 const val CAT_WATCH = "Meine Liste"
+/** SageIPTV: the area's favourites (movies or series marked with the heart) as the first category. */
+const val CAT_FAVS = "Favoriten"
 
-fun isTopEntry(name: String) = name == CAT_RECENT || name == CAT_WATCH
+fun isTopEntry(name: String) = name == CAT_RECENT || name == CAT_WATCH || name == CAT_FAVS
 
 /** Row text of a folder built from shared category patterns (#96): "FR  ›". */
 fun folderLabel(prefix: String) = "$prefix  ›"
@@ -126,11 +128,18 @@ fun CategoriesScreen(
         val f = folderByLabel[name]
         if (mode == 1 && f != null) { folder = f.prefix } else { onPick(name, items, s) }
     }
-    val entries = remember(map, az, saved, CatOrder.version, req.recent, req.watch) {
+    // SageIPTV: favourites of this area (movies or series), newest favourite first
+    val favKind = when (req.area) { CatOrder.SERIES -> Kind.SERIES; CatOrder.MOVIE -> Kind.MOVIE; else -> null }
+    val favItems = remember(favKind, Library.favs.toList(), PlaylistStore.channels) {
+        if (favKind == null || Library.favs.isEmpty()) emptyList()
+        else FavCatLogic.pick(Library.favs, PlaylistStore.channels.filter { it.kind == favKind }) { it.id }
+    }
+    val entries = remember(map, az, saved, CatOrder.version, req.recent, req.watch, favItems) {
         val l = map.entries.map { it.key to it.value }
         val base = if (saved && area != null) CatOrder.sorted(area, map.keys.toList()).mapNotNull { k -> map[k]?.let { k to it } }
             else if (az) l.sortedBy { it.first.lowercase() } else l
         val top = ArrayList<Pair<String, List<Item>>>()
+        if (favItems.isNotEmpty()) top.add(CAT_FAVS to favItems)
         if (req.recent.isNotEmpty()) top.add(CAT_RECENT to req.recent)
         if (req.watch.isNotEmpty()) top.add(CAT_WATCH to req.watch)
         top + base
