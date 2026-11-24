@@ -142,7 +142,7 @@ fun CategoriesScreen(
     Box(Modifier.fillMaxSize().background(Bg)) {
         if (CatPrefs.listView) {
             bgItem?.let { MetaRepo.cached(it)?.backdrop }?.let {
-                AsyncImage(it, null, Modifier.fillMaxSize(), contentScale = ContentScale.Crop, alpha = 0.25f)
+                AsyncImage(cardBackdrop(it), null, Modifier.fillMaxSize(), contentScale = ContentScale.Crop, alpha = 0.25f)
             }
             Box(Modifier.fillMaxSize().background(Brush.horizontalGradient(listOf(Bg.copy(alpha = .97f), Bg.copy(alpha = .6f)))))
         }
@@ -451,7 +451,7 @@ private fun CatTile(name: String, items: List<Item>, modifier: Modifier, onClick
     val picks = remember(items) { (if (isTopEntry(name)) items.take(3) else items.takeLast(3).reversed()) }
     val ver = Classifier.version
     val posters = remember(picks, ver) { picks.mapNotNull { MetaRepo.cached(it)?.poster?.let { p -> cardPoster(p) } } }
-    val backdrop = remember(picks, ver) { picks.firstNotNullOfOrNull { MetaRepo.cached(it)?.backdrop } }
+    val backdrop = remember(picks, ver) { picks.firstNotNullOfOrNull { MetaRepo.cached(it)?.backdrop }?.let { ImageSizeLogic.tileBackdrop(it) } }
     val tint = TILE_COLORS[(name.hashCode() and 0x7fffffff) % TILE_COLORS.size]
     Box(
         modifier.graphicsLayer { scaleX = s; scaleY = s }.fillMaxWidth().height(132.dp).focusGlow(f, shape).clip(shape)

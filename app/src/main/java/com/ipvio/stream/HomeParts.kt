@@ -117,7 +117,7 @@ fun cardGrid(contentW: Dp, size: Int = General.cardSize, perRow: Int = 0): CardG
 }
 
 /** Landscape image from TMDB in a suitable size for cards (w780 instead of w1280). */
-fun cardBackdrop(url: String): String = url.replace("/t/p/w1280/", "/t/p/w780/")
+fun cardBackdrop(url: String): String = ImageSizeLogic.backdrop(url)
 
 /** "2016 | Abenteuer | 1h 47min | ★ 7.6" as in the design draft. */
 @Composable

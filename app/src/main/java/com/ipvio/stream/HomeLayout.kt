@@ -98,8 +98,9 @@ private val HOME_BLOCKS = listOf(
 )
 
 /** Home screen: new blocks are hidden by default so it looks as before until someone switches them on. */
-// SageIPTV: the big slideshow starts hidden (lighter start on small TVs); it can be switched on in the home layout settings
-object HomeLayout : BlockLayout("ipvio_homelayout", HOME_BLOCKS, setOf("hero", "favch", "hist"))
+// SageIPTV: a lean home by default (lighter on small TVs): tiles, Continue watching, My list, Live now and the newest titles.
+// The slideshow, top/best rows and genre rows start hidden and can be switched on in the home layout settings.
+object HomeLayout : BlockLayout("ipvio_homelayout", HOME_BLOCKS, setOf("hero", "favch", "hist", "trend", "because", "topm", "tops", "sg", "mg"))
 
 private val BOOMER_BLOCKS = listOf(
     LayoutBlock("clock", "Große Uhr", "Uhrzeit und Datum, gut lesbar"),
