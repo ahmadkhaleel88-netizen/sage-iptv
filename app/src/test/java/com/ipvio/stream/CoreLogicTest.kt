@@ -129,7 +129,7 @@ http://h/x
     }
 
     // ---------------------------------------------------------------- Menu
-    @Test fun menue_standard() = assertEquals(listOf(0, 3, 1, 2, 10, 6, 7, 8, 9, 4, 5), MenuLogic.parseOrder(null))
+    @Test fun menue_standard() = assertEquals(listOf(0, 7, 3, 1, 2, 10, 6, 8, 9, 4, 5), MenuLogic.parseOrder(null))
 
     @Test fun menue_alteReihenfolge_neueBereicheVorEinstellungen() {
         assertEquals(listOf(0, 1, 2, 3, 4, 6, 7, 8, 9, 10, 5), MenuLogic.parseOrder("0,1,2,3,4,5"))

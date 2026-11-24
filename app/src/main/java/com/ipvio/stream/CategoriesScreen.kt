@@ -51,8 +51,10 @@ data class CatReq(
 
 const val CAT_RECENT = "Zuletzt geschaut"
 const val CAT_WATCH = "Meine Liste"
+/** SageIPTV: the area's favourites (movies or series marked with the heart) as the first category. */
+const val CAT_FAVS = "Favoriten"
 
-fun isTopEntry(name: String) = name == CAT_RECENT || name == CAT_WATCH
+fun isTopEntry(name: String) = name == CAT_RECENT || name == CAT_WATCH || name == CAT_FAVS
 
 /** Row text of a folder built from shared category patterns (#96): "FR  ›". */
 fun folderLabel(prefix: String) = "$prefix  ›"
@@ -126,11 +128,18 @@ fun CategoriesScreen(
         val f = folderByLabel[name]
         if (mode == 1 && f != null) { folder = f.prefix } else { onPick(name, items, s) }
     }
-    val entries = remember(map, az, saved, CatOrder.version, req.recent, req.watch) {
+    // SageIPTV: favourites of this area (movies or series), newest favourite first
+    val favKind = when (req.area) { CatOrder.SERIES -> Kind.SERIES; CatOrder.MOVIE -> Kind.MOVIE; else -> null }
+    val favItems = remember(favKind, Library.favs.toList(), PlaylistStore.channels) {
+        if (favKind == null || Library.favs.isEmpty()) emptyList()
+        else FavCatLogic.pick(Library.favs, PlaylistStore.channels.filter { it.kind == favKind }) { it.id }
+    }
+    val entries = remember(map, az, saved, CatOrder.version, req.recent, req.watch, favItems) {
         val l = map.entries.map { it.key to it.value }
         val base = if (saved && area != null) CatOrder.sorted(area, map.keys.toList()).mapNotNull { k -> map[k]?.let { k to it } }
             else if (az) l.sortedBy { it.first.lowercase() } else l
         val top = ArrayList<Pair<String, List<Item>>>()
+        if (favItems.isNotEmpty()) top.add(CAT_FAVS to favItems)
         if (req.recent.isNotEmpty()) top.add(CAT_RECENT to req.recent)
         if (req.watch.isNotEmpty()) top.add(CAT_WATCH to req.watch)
         top + base
@@ -142,7 +151,7 @@ fun CategoriesScreen(
     Box(Modifier.fillMaxSize().background(Bg)) {
         if (CatPrefs.listView) {
             bgItem?.let { MetaRepo.cached(it)?.backdrop }?.let {
-                AsyncImage(it, null, Modifier.fillMaxSize(), contentScale = ContentScale.Crop, alpha = 0.25f)
+                AsyncImage(cardBackdrop(it), null, Modifier.fillMaxSize(), contentScale = ContentScale.Crop, alpha = 0.25f)
             }
             Box(Modifier.fillMaxSize().background(Brush.horizontalGradient(listOf(Bg.copy(alpha = .97f), Bg.copy(alpha = .6f)))))
         }
@@ -451,7 +460,7 @@ private fun CatTile(name: String, items: List<Item>, modifier: Modifier, onClick
     val picks = remember(items) { (if (isTopEntry(name)) items.take(3) else items.takeLast(3).reversed()) }
     val ver = Classifier.version
     val posters = remember(picks, ver) { picks.mapNotNull { MetaRepo.cached(it)?.poster?.let { p -> cardPoster(p) } } }
-    val backdrop = remember(picks, ver) { picks.firstNotNullOfOrNull { MetaRepo.cached(it)?.backdrop } }
+    val backdrop = remember(picks, ver) { picks.firstNotNullOfOrNull { MetaRepo.cached(it)?.backdrop }?.let { ImageSizeLogic.tileBackdrop(it) } }
     val tint = TILE_COLORS[(name.hashCode() and 0x7fffffff) % TILE_COLORS.size]
     Box(
         modifier.graphicsLayer { scaleX = s; scaleY = s }.fillMaxWidth().height(132.dp).focusGlow(f, shape).clip(shape)

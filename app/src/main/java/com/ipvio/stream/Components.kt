@@ -145,7 +145,7 @@ fun seriesInfo(item: Item): String {
 }
 
 /** For cards the smaller TMDB image size is enough (w342 instead of w500): less data, faster, less memory. */
-fun cardPoster(url: String): String = url.replace("/t/p/w500/", "/t/p/w342/")
+fun cardPoster(url: String): String = ImageSizeLogic.poster(url)
 
 @Composable
 fun PosterCard(
@@ -163,7 +163,7 @@ fun PosterCard(
     val img: String? = when {
         live -> item.logo
         m?.poster != null -> cardPoster(m.poster)
-        st.done -> item.logo
+        st.done -> item.logo?.let { cardPoster(it) }
         else -> null
     }
     val posterMod = if (fixedPosterHeight != null) Modifier.fillMaxWidth().height(fixedPosterHeight)
