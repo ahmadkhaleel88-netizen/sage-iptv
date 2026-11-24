@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+## 1.7.0 (versionCode 20)
+- Start: no more "No channels yet" with the add button for a moment at a cold start; the loading view shows until the saved playlist is read. Not device tested yet
+- Movies and Series open their categories right away (categories on the left, titles on the right) instead of a page with a rotating slideshow. "Movies and series straight to categories" is now on by default; switch it off in Settings to get the old pages back. Not device tested yet
+- Home: the big slideshow at the top starts hidden; Continue watching and the other rows stay. Switch it back on in the home layout settings. Only for users who never changed the home layout. Not device tested yet
+
 ## 1.6.1 (versionCode 19)
 - Smoother on small TVs (up to 3 GB of memory): animations start as "Off" and the home banner no longer changes by itself, unless you chose something else in Settings. Measured on a 1.8 GB Google TV: 91% of frames were late while browsing Movies with full animations. Not yet measured after the change. Turn animations back on in Settings > Design & color > Animations
 - Start: the SageIPTV logo on deep green shows at once while the app loads, instead of an empty screen for a few seconds. Loading itself is not faster yet. Not device tested yet

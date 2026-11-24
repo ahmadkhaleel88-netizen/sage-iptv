@@ -98,7 +98,8 @@ private val HOME_BLOCKS = listOf(
 )
 
 /** Home screen: new blocks are hidden by default so it looks as before until someone switches them on. */
-object HomeLayout : BlockLayout("ipvio_homelayout", HOME_BLOCKS, setOf("favch", "hist"))
+// SageIPTV: the big slideshow starts hidden (lighter start on small TVs); it can be switched on in the home layout settings
+object HomeLayout : BlockLayout("ipvio_homelayout", HOME_BLOCKS, setOf("hero", "favch", "hist"))
 
 private val BOOMER_BLOCKS = listOf(
     LayoutBlock("clock", "Große Uhr", "Uhrzeit und Datum, gut lesbar"),

@@ -36,8 +36,8 @@ android {
         minSdk = 24
         targetSdk = 37
         // Raise both for every release; the GitHub release tag must match versionName (e.g. tag "v1.1").
-        versionCode = 19
-        versionName = "1.6.1"
+        versionCode = 20
+        versionName = "1.7.0"
         // Name under the icon; the debug build overrides it (see buildTypes)
         manifestPlaceholders["appLabel"] = "SageIPTV"
 
