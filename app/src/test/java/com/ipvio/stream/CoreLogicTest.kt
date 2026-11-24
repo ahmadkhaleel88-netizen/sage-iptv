@@ -153,7 +153,7 @@ http://h/x
 
     @Test fun menue_verschiebenUndGrenzen() {
         val o = MenuLogic.DEFAULT_ORDER
-        assertEquals(listOf(3, 0, 1, 2, 10, 6, 7, 8, 9, 4, 5), MenuLogic.move(o, 0, 1))
+        assertEquals(listOf(7, 0, 3, 1, 2, 10, 6, 8, 9, 4, 5), MenuLogic.move(o, 0, 1))
         assertEquals(o, MenuLogic.move(o, 0, -1))
         assertEquals(o, MenuLogic.move(o, 5, 1))
         assertEquals(o, MenuLogic.move(o, 99, 1))
