@@ -18,7 +18,8 @@ object MenuLogic {
     /** Round 20: Sports – running and upcoming sports shows, sports channels. */
     const val SPORT = 10
     /** As in the draft: Home, Live TV, movies, series, EPG, favorites, "Meine Liste", (search), settings. */
-    val DEFAULT_ORDER = listOf(0, 3, 1, 2, SPORT, EPG, FAVS, MYLIST, VERLAUF, SEARCH, 5)
+    // SageIPTV: Favourites right below Home
+    val DEFAULT_ORDER = listOf(0, FAVS, 3, 1, 2, SPORT, EPG, MYLIST, VERLAUF, SEARCH, 5)
     /**
      * Search sits at the top in the header, not in the sidebar: hidden by default.
      * EPG (round 14, user's wish): also hidden – the TV guide is reachable via Live TV.

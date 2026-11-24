@@ -5,6 +5,7 @@
 ## 1.7.1 (versionCode 21)
 - Lighter posters: movie and series artwork from TMDB is always loaded in card size (w342 posters, w780 scene images, w300 behind category tiles), also when the playlist links the full-size "original" image. Aims at the 150-450 ms stalls measured when a category fills with posters (67% late frames on a 1.8 GB TV with 1.7.0). Not measured after the change yet
 - Lean home by default: tiles, Continue watching, My list, Live now and the newest movies and series. Top 10, best-rated, "Because you watched" and the genre rows start hidden (switch them on in the home layout settings). Only for users who never changed the home layout. Not device tested yet
+- Side menu: Favourites sits right below Home by default. Only for users who never changed the menu order. Not device tested yet
 
 ## 1.7.0 (versionCode 20)
 - Start: no more "No channels yet" with the add button for a moment at a cold start; the loading view shows until the saved playlist is read. Not device tested yet
