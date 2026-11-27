@@ -20,4 +20,9 @@ class StartLoadingLogicTest {
     @Test fun aRunningLoadAlwaysShowsLoading() {
         assertTrue(AddFlowLogic.showsLoading(loading = true, everFinished = true, hasLists = true))
     }
+
+    @Test fun aFirstLoadThatNeverStartsStopsWaitingAfterTheLimit() {
+        assertFalse(AddFlowLogic.showsLoading(false, false, true, AddFlowLogic.WAIT_FIRST_LOAD_MS))
+        assertTrue(AddFlowLogic.showsLoading(false, false, true, AddFlowLogic.WAIT_FIRST_LOAD_MS - 1))
+    }
 }

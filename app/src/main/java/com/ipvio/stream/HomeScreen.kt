@@ -589,6 +589,12 @@ fun HomeScreen(
             // Design: big picture 420 px high (start), 345 px (movies/series)
             val heroH = dpx(if (tab == 0) 540 else 450)
             val keepSettings = AddFlowLogic.keepsSettingsPage(tab, PlaylistStore.lists.isNotEmpty())
+            // SageIPTV: time since this screen appeared, so a first load that never starts cannot keep the skeleton forever
+            var waitedMs by remember { mutableStateOf(0L) }
+            LaunchedEffect(PlaylistStore.everFinished) {
+                val t0 = System.currentTimeMillis()
+                while (!PlaylistStore.everFinished && waitedMs < AddFlowLogic.WAIT_FIRST_LOAD_MS) { kotlinx.coroutines.delay(1000); waitedMs = System.currentTimeMillis() - t0 }
+            }
             when {
                 // Download/parse without a shown list: loading screen with progress (and possibly language selection)
                 // On the settings tab only when a language choice is waiting: a mode switch re-parses the stored copy (heavy)
@@ -598,7 +604,7 @@ fun HomeScreen(
                 // replacing it would drop the focus, and the next OK press could land on "Add playlist"
                 // SageIPTV: before the first load has finished, an empty list means "not loaded yet": show the skeleton,
                 // not "No channels yet" with its add button (that flashed for a moment at every cold start)
-                !keepSettings && ((AddFlowLogic.showsLoading(PlaylistStore.loading, PlaylistStore.everFinished, PlaylistStore.lists.isNotEmpty()) && all.isEmpty()) || computing) -> SkeletonHome()
+                !keepSettings && ((AddFlowLogic.showsLoading(PlaylistStore.loading, PlaylistStore.everFinished, PlaylistStore.lists.isNotEmpty(), waitedMs) && all.isEmpty()) || computing) -> SkeletonHome()
                 !keepSettings && all.isEmpty() -> Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                     Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(14.dp)) {
                         BrandMark(Modifier.size(72.dp))
